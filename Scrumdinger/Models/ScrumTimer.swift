@@ -12,3 +12,4 @@ class ScrumTimer: ObservableObject {
     @Published var secondsElapsed = 0
     @Published var secondsRemainin = 0
 }
+

@@ -13,8 +13,8 @@ struct DetailView: View {
     var body: some View {
         List {
             Section(header: Text("Meeting Info")) {
-                NavigationLink(destination: MeetingView()) {
-                    // MeetingView 대상으로 설정하는 NavigationLink로 Label을 감싼다.
+                NavigationLink(destination: MeetingView(scrum: $scrum)) {
+                    // MeetingView 대상으로 설정하는 NavigationLink로 Label을 감싼다, 스크럼 바인딩 추가
                     Label("Start Meeting", systemImage: "timer")
                         .font(.headline)
                         .foregroundColor(.accentColor)
