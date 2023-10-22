@@ -5,6 +5,8 @@
 import SwiftUI
 
 struct MeetingView: View {
+    @StateObject var scrumTimer = ScrumTimer()
+    
     var body: some View {
         VStack {
             ProgressView(value: 5, total: 15)
