@@ -10,6 +10,7 @@ import SwiftUI
 struct MeetingHeaderView: View {
     let secondsElapsed: Int // seconds에 대한 속성을 만들고 프리뷰에서
     let secondsRemaining: Int // 새 인수를 이니셜라이저에 전달.
+    let theme: Theme // Theme 추가
     
     private var totalSeconds: Int { // totalSeconds라는 계산 속성을 추가
         secondsElapsed + secondsRemaining
@@ -26,17 +27,20 @@ struct MeetingHeaderView: View {
     var body: some View {
         VStack {
             ProgressView(value: progress)
+                .progressViewStyle(ScrumProgressViewStyle(theme: theme))
             HStack {
                 VStack(alignment: .leading) {
                     Text("Seconds Elapsed")
                         .font(.caption)
                     Label("\(secondsElapsed)", systemImage: "hourglass.bottomhalf.fill")
+                        .labelStyle(.trailingIcon)
                 }
-                Spacer()
+                Spacer() 
                 VStack(alignment: .trailing) {
                     Text("Seconds Remaining")
                         .font(.caption)
                     Label("\(secondsRemaining)", systemImage: "hourglass.tophalf.fill")
+                        .labelStyle(.trailingIcon)
                 }
             }
         }
@@ -44,10 +48,11 @@ struct MeetingHeaderView: View {
         .accessibilityLabel("Time remaining")
         .accessibilityValue("10 minutes") // 접근성 추가
         .accessibilityValue("\(minutesRemaining) minutes")
+        .padding([.top, .horizontal]) // 최상위 VStack 간격을 조정하기 위해 상단과 수평 패딩을 추가
     }
 }
 
 #Preview {
-    MeetingHeaderView(secondsElapsed: 60, secondsRemaining: 180)
+    MeetingHeaderView(secondsElapsed: 60, secondsRemaining: 180, theme: .bubblegum)
         .previewLayout(.sizeThatFits)
 }
