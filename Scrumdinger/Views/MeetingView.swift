@@ -16,14 +16,8 @@ struct MeetingView: View {
                 MeetingHeaderView(secondsElapsed: scrumTimer.secondsElapsed, secondsRemaining: scrumTimer.secondsRemaining, theme: scrum.theme) // scrumTimer를 사용하는 미팅헤더 하위 뷰에 추가
                 Circle()
                     .strokeBorder(lineWidth: 24)
-                HStack {
-                    Text("Speaker 1 of 3")
-                    Spacer()
-                    Button(action: {}) {
-                        Image(systemName: "forward.fill")
-                    }
-                    .accessibilityLabel("Next speaker")
-                }
+                MeetingFooterView(speakers: scrumTimer.speakers, skipAction: scrumTimer.skipSpeaker)
+                // MeetingFooterView 추가하고, speakers 와 sipAction 추가
             }
         }
         .padding()
