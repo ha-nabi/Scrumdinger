@@ -3,10 +3,14 @@
  */
 
 import SwiftUI
+import AVFoundation
 
 struct MeetingView: View {
     @Binding var scrum: DailyScrum // 스크럼 바인딩
     @StateObject var scrumTimer = ScrumTimer() // 스크럼타이머 @StateObject프로퍼티 추가
+    
+    private var player: AVPlayer { AVPlayer.sharedDingPlayer}
+    // avp 관련 프로퍼티
     
     var body: some View {
         ZStack {
@@ -25,6 +29,10 @@ struct MeetingView: View {
         .onAppear {
             scrumTimer.reset(lengthInMinutes: scrum.lengthInMinutes, attendees: scrum.attendees)
             // 타이머는 Meeting 인스턴스가 화면에 표시될 때마다 재설정되며, 이는 회의가 시작되어야 함을 나타냄
+            scrumTimer.speakerChangedAction = {
+                player.seek(to: .zero)
+                player.play() // 오디오파일 재생
+            } // ScrumTimer연사의 시간이 만료되면 이 행동을 호출합니다. ( 효과음 )
             scrumTimer.startScrum() // 타이머가 재설정된 후 scrum.startScrum()을 호출하여새 스크럼 타이머를 시작시킴.
         }
         .onDisappear() {
