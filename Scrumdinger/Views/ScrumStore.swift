@@ -34,4 +34,13 @@ class ScrumStore: ObservableObject {
         let scrums = try await task.value // try await 사용하여 작업이 완료될 때까지 기다린 뒤, scrums 상수에 값을 할당.
         self.scrums = scrums
     }
+    
+    func save(scrums: [DailyScrum]) async throws { // 인코딩 스크럼은 실패할 수 있으며, 발생하는 오류를 처리해야 함.
+        let task = Task {
+            let data = try JSONEncoder().encode(scrums) // 스크럼 데이터 인코딩
+            let outfile = try Self.fileURL() // 파일 URL에 대한 상수
+            try data.write(to: outfile) // 인코딩 된 데이터를 파일에 씀
+        }
+        _ = try await task.value // 작업을 기다리면 작업 내부에 발생한 모든 오류가 발신자에게 보고됨. 밑줄 문자는 당신이 task.value 결과에 관심이 없다는 것을 나타냄.
+    }
 }
