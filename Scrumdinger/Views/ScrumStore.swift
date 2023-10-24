@@ -19,14 +19,14 @@ class ScrumStore: ObservableObject {
     }
     
     func load() async throws { // load 비동기 함수 선언
-        let task = Task<[DailyScrum], Error> { // task에 일반 매개 변수 추가.
+        let task = Task<[DailyScrum], Error> { // 이후에 반환된 값에 오류를 포착할 수 있도록 작업을 let 상수에 저장
             // 매개 변수는 closure 컴파일러를 반환.
             let fileURL = try Self.fileURL() // task 클로저 내부에서, 파일 URL에 대한 로컬 상수를 만듬.
-            guard let data = try? Data(contentsOf: fileURL) else {
+            guard let data = try? Data(contentsOf: fileURL) else { // / 파일 데이터를 선택적으로 로드(가드렛)
                 return [] // 응용 프로그램이 처음 열려 있는 경우 데이터 파일이 존재하지 않기 때문에 빈 어레이를 반환하면 빈 어레이를 반환하면 빈 어레이를 반환함.
             }
             let dailyScrums = try JSONDecoder().decode([DailyScrum].self, from: data)
-            // 데이터를 daily 로컬 상수로 디코딩.
+            // 데이터를 로컬 상수로 디코딩.
             return dailyScrums
             // 디코딩된 스크럼 배열을 반환.
             // 작업 종료에서 반환된 값은 작업이 완료되면 사용할 수 있음.
