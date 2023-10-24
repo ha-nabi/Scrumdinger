@@ -43,6 +43,18 @@ struct DetailView: View {
                     Label(attendee.name, systemImage: "person")
                 }
             }
+            Section(header: Text("History")) { // History 헤더가 있는 섹션 추가
+                if scrum.history.isEmpty {
+                    Label("No meetings yet", systemImage: "calendar.badge.exclamationmark")
+                    // scrum.history가 비어 있으면 회의가 발생하지 않았음을 나타내는 라벨
+                }
+                ForEach(scrum.history) { history in
+                    HStack { // HStack 사용하여 배열의 각 항목에 대한 달력 아이콘과 날짜를 표시
+                        Image(systemName: "calendar")
+                        Text(history.date, style: .date)
+                    }
+                }
+            }
         }
         .navigationTitle(scrum.title)
         .toolbar {

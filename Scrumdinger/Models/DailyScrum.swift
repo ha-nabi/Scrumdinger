@@ -18,6 +18,7 @@ struct DailyScrum: Identifiable {  // ID 속성과 이름 변수를 추가
         }
     }
     var theme: Theme
+    var history: [History] = [] // 빈 배열 값으로 history 속성을 추가
     
     init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme) {
         self.id = id
