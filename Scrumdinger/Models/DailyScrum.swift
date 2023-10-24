@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct DailyScrum: Identifiable {  // ID 속성과 이름 변수를 추가
+struct DailyScrum: Identifiable, Codable{  // ID 속성과 이름 변수를 추가
     let id: UUID
     var title: String
     var attendees: [Attendee]
@@ -30,7 +30,7 @@ struct DailyScrum: Identifiable {  // ID 속성과 이름 변수를 추가
 }
 
 extension DailyScrum {
-    struct Attendee: Identifiable {
+    struct Attendee: Identifiable, Codable {
         let id: UUID
         var name: String
         
