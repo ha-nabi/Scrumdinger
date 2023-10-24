@@ -40,6 +40,6 @@ struct ScrumsView: View {
 
 struct ScrumsView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrumsView(scrums: .constant(DailyScrum.sampleData))
+        ScrumsView(scrums: .constant(DailyScrum.sampleData), saveAction: {})
     }
 }
